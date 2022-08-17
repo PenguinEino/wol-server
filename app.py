@@ -1,7 +1,13 @@
-from flask import Flask, request, Response
+from flask import Flask, request, Response, render_template
 import wakeonlan
 
 app = Flask(__name__)
+
+
+@app.route('/')
+def howtouse():
+    return render_template("index.html")
+
 
 @app.route('/send_magick', methods=['GET'])
 def send_magick():
@@ -15,7 +21,7 @@ def send_magick():
         ip_address=ip_address,
         port=port
     )
-    return Response('', status=201)
+    return Response('magick packet have sent successfully', status=201)
 
 
 @app.errorhandler(400)
